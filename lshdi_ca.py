@@ -1,11 +1,8 @@
 """
-    LSHDI -
-        linear solution to higher dimensional interlayer networks
-
-    This net was written by the following article: https://arxiv.org/ftp/arxiv/papers/1207/1207.3368.pdf
-    It consist of input, one hidden layer, one output linear layer.
-    A net training is provided by matrix pseudoinverse.
+    lshdi using cline analogue formula
+    @link https://www.elibrary.ru/item.asp?id=42804101
 """
+
 import numpy as np
 
 
@@ -34,6 +31,9 @@ class LSHDI:
         return self.output
 
     def train(self, train_set: np.ndarray, train_out_set: np.ndarray):
+
+        # TODO: разбить попарно на блоки и посчитать по формуле
+
         train_hidden_out = np.column_stack(self.calc_hidden_output(train) for train in train_set)
         print('Start calculating pinv...')
         pinv_train_hidden_out = np.linalg.pinv(np.transpose(train_hidden_out))

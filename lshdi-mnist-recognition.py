@@ -6,6 +6,9 @@ from tensorflow.keras.datasets import mnist
 # load test data
 (trainX, train_y), (testX, testy) = mnist.load_data()
 
+import time
+start_time = time.time()
+
 # define a train size (for reducing calculation time)
 train_size = 6000
 # siz = trainX.size
@@ -30,7 +33,7 @@ for i in range(9):
 plt.show()
 
 # define neural net and train it
-nn = LSHDI(28 * 28, 120 * 10, 10)
+nn = LSHDI(28 * 28, 28 * 28 * 10, 10)
 nn.train(trainX_vectors, trainy)
 
 # test it
@@ -43,3 +46,5 @@ for i in range(testy.size):
 
 percent = success / testy.size * 100
 print('Success recognized images: ', percent, '%')
+
+print("--- %s seconds ---" % (time.time() - start_time))
