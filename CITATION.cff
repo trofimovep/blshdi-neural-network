@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Example of using block pseudoinverse in neural nets"
+authors:
+  - family-names: Trofimov
+    given-names: E.P.
+    orcid: https://orcid.org/0000-0003-4925-7248
+title: "Block pseudoinverse in neural nets"
+version: 1.0.3
+date-released: 2022-01-11
