@@ -10,7 +10,7 @@ import time
 start_time = time.time()
 
 # define a train size (for reducing calculation time)
-train_size = 6000
+train_size = 60000
 # siz = trainX.size
 trainX = trainX[0:train_size]
 train_y = train_y[0:train_size]
