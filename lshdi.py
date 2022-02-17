@@ -35,7 +35,7 @@ class LSHDI:
 
     def train(self, train_set: np.ndarray, train_out_set: np.ndarray):
         train_hidden_out = np.column_stack(self.calc_hidden_output(train) for train in train_set)
-        print('Start calculating pinv...')
+        # print('Start calculating pinv...')
         pinv_train_hidden_out = np.linalg.pinv(np.transpose(train_hidden_out))
-        print('Start calculating a new weights...')
+        # print('Start calculating a new weights...')
         self.output_layer = np.matmul(pinv_train_hidden_out, train_out_set)
