@@ -1,3 +1,7 @@
+"""
+    Checking the dependency accuracy on hidden neurons amount
+"""
+
 import numpy as np
 from lshdi import LSHDI
 from matplotlib import pyplot as plt
