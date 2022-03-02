@@ -1,8 +1,7 @@
 """
-    LSHDI -
-        linear solution to higher dimensional interlayer networks
+    LSHDI - linear solution to higher dimensional interlayer networks
 
-    This net was written by the following article: https://arxiv.org/ftp/arxiv/papers/1207/1207.3368.pdf
+    This net was written according to the following article: https://arxiv.org/ftp/arxiv/papers/1207/1207.3368.pdf
     It consist of input, one hidden layer, one output linear layer.
     A net training is provided by matrix pseudoinverse.
 """
