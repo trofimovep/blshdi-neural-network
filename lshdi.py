@@ -1,9 +1,8 @@
 """
-    LSHDI -
-        linear solution to higher dimensional interlayer networks
+    LSHDI - linear solution to higher dimensional interlayer networks
 
     This net was written by the following article: https://arxiv.org/ftp/arxiv/papers/1207/1207.3368.pdf
-    It consist of input, one hidden layer, one output linear layer.
+    It consists of input, one hidden layer, one output linear layer.
     A net training is provided by matrix pseudoinverse.
 """
 import numpy as np
@@ -18,6 +17,8 @@ def sigmoid(x, derivative=False):
 class LSHDI:
     def __init__(self, input_vector_size: int, hidden_neurons_amount: int, output_vector_size: int):
         # each row in a layer (matrix) is a neuron weights
+        self.output = None
+        self.hidden_output = None
         self.hidden_layer = 2 * np.random.rand(hidden_neurons_amount, input_vector_size) - 1
         self.output_layer = 2 * np.random.rand(output_vector_size, hidden_neurons_amount) - 1
 
