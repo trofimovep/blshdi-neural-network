@@ -63,7 +63,6 @@ class LSHDI:
         self.output_layer = np.matmul(pinv_train_hidden_out, train_out_set)
 
 
-
 # test
 # load test data
 (trainX, train_y), (testX, testy) = mnist.load_data()
