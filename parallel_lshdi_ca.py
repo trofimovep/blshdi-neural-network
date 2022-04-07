@@ -2,10 +2,12 @@
     lshdi using cline analogue formula
     @link https://www.elibrary.ru/item.asp?id=42804101
 """
+import multiprocessing
+from threading import Thread
 
 import numpy as np
 from utils import divide_on_4
-from cline_analogue import two_block_inverse, two_block_inverse_with_pinv
+from cline_analogue import two_block_inverse, two_block_inverse_with_pinv, two_block_inverse_and_put
 from tensorflow.keras.datasets import mnist
 
 
@@ -48,18 +50,22 @@ class LSHDI:
         third_block = train_hidden_out[:, III:IV + 1]
         fourth_block = train_hidden_out[:, IV + 1:]
 
-        # распараллелить
-        pinv_I_II = two_block_inverse(first_block, second_block)
-        pinv_III_IV = two_block_inverse(third_block, fourth_block)
-        # TODO: если известны псевдообратные
+        iblocks = {}
+        t12 = Thread(target=two_block_inverse_and_put, args=(iblocks, '1-2', first_block, second_block))
+        t12.start()
+        t34 = Thread(target=two_block_inverse_and_put, args=(iblocks, '3-4', third_block, fourth_block))
+        t34.start()
+        t12.join()
+        t34.join()
 
         pinv_train_hidden_out = two_block_inverse_with_pinv(
-            train_hidden_out[:, :II + 1], pinv_I_II,
-            train_hidden_out[:, II + 1:], pinv_III_IV
+            train_hidden_out[:, :II + 1], iblocks['1-2'],
+            train_hidden_out[:, II + 1:], iblocks['3-4']
         )
 
         print('Start calculating a new weights...')
         self.output_layer = np.matmul(pinv_train_hidden_out, train_out_set)
+
 
 
 # test
@@ -71,7 +77,7 @@ import time
 start_time = time.time()
 
 # define a train size (for reducing calculation time)
-train_size = 6000
+train_size = 60000
 # siz = trainX.size
 trainX = trainX[0:train_size]
 train_y = train_y[0:train_size]

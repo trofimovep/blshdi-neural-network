@@ -16,7 +16,7 @@ def sigmoid(x, derivative=False):
 
 class LSHDI:
     def __init__(self, input_vector_size: int, hidden_neurons_amount: int, output_vector_size: int):
-        # each row in a layer (matrix) is a neuron weights
+        # each row in a layer (matrix) is the neuron weights
         self.output = None
         self.hidden_output = None
         self.hidden_layer = 2 * np.random.rand(hidden_neurons_amount, input_vector_size) - 1
