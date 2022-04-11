@@ -9,7 +9,7 @@ import time
 def main():
     print("Hello World!")
     (trainX, train_y), (testX, testy) = mnist.load_data()
-    train_size = 100
+    train_size = 60_000
     trainX = trainX[0:train_size]
     train_y = train_y[0:train_size]
     trainX_vectors = [image_matrix.ravel() for image_matrix in trainX]
@@ -26,26 +26,23 @@ def main():
     train_time_in_parallel = []
     train_time_in_one_thread = []
 
-    step = 28
-    # step = 28 * 10
+    step = 560
     hidden_neurons = 28
-    # hidden_neurons = 28 * 10
-    while hidden_neurons < 28 * 28 * 10:
-    # while hidden_neurons < 100:
+    while hidden_neurons < 28*20*10:
+        print(hidden_neurons)
         neurons_amount.append(hidden_neurons)
         nn = LSHDI(28 * 28, hidden_neurons, 10)
         pnn = PLSHDI(28 * 28, hidden_neurons, 10)  # in parallel
+
+        start = time.time()
+        nn.train(trainX_vectors, trainy)
+        finish = time.time()
+        train_time_in_one_thread.append(finish - start)
 
         pstart = time.time()
         pnn.train(trainX_vectors, trainy)
         pfinish = time.time()
         train_time_in_parallel.append(pfinish - pstart)
-
-        start = time.time()
-        nn.train(trainX_vectors, trainy)
-        finish = time.time()
-        calc_time1 = finish - start
-        train_time_in_one_thread.append(calc_time1)
 
         hidden_neurons += step
 
